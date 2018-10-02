@@ -1,0 +1,11 @@
+services:
+	moduleManager:
+		setup:
+			- addModule(Crm\WordpressModule\WordpressModule())
+
+	- Crm\WordpressModule\Api\WordpressUserInfoApiHandler
+	- Crm\WordpressModule\Model\ApiClient
+
+	wordpressUserTokenAuthorization:
+		factory: Crm\WordpressModule\Authorization\WordpressUserTokenAuthorization
+		autowired: self # disable autowire, we still want to use parent class
