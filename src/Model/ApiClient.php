@@ -2,46 +2,41 @@
 
 namespace Crm\WordpressModule\Model;
 
+use Crm\UsersModule\Repository\UsersRepository;
+
+/**
+ * Class ApiClient
+ * @todo Dummy implementation, should connect to wordpress API / database
+ */
 class ApiClient
 {
-    // dummy implementation, should connect to wordpress API / database
+    private $usersRepository;
+
+    public function __construct(
+        UsersRepository $usersRepository
+    ) {
+        $this->usersRepository = $usersRepository;
+    }
+
     public function userInfo(string $token)
     {
         switch ($token) {
             case 'testingWordpressToken':
                 return (object)[
                     'user' => (object)[
-                        'id' => '99999',
-                        'email' => 'user@email.sk',
-                        'first_name' => 'Test',
-                        'last_name' => 'User',
+                        'id' => 'wp.11111',
+                        'email' => 'admin@admin.sk',
+                        'first_name' => 'CRM and WP',
+                        'last_name' => 'Author Admin',
+                        'roles' => ['admin', 'author', 'editor']
                     ],
                     'author' => (object)[
-                        'id' => 'wp.99999',
-                        'email' => 'author@email.sk',
-                        'first_name' => 'Test',
-                        'last_name' => 'Author',
-                        'roles' => ['author', 'webeditor']
+                        'id' => 'wp.11111',
+                        'email' => 'admin@admin.sk',
+                        'first_name' => 'CRM and WP',
+                        'last_name' => 'Author Admin',
+                        'roles' => ['admin', 'author', 'editor']
                     ],
-                ];
-            case 'testingWordpressToken_UserOnly':
-                return (object)[
-                    'user' => (object)[
-                        'id' => '99999',
-                        'email' => 'user@email.sk',
-                        'first_name' => 'Test',
-                        'last_name' => 'User',
-                    ]
-                ];
-            case 'testingWordpressToken_AuthorOnly':
-                return (object)[
-                    'author' => (object)[
-                        'id' => 'wp.99999',
-                        'email' => 'author@email.sk',
-                        'first_name' => 'Test',
-                        'last_name' => 'Author',
-                        'roles' => ['author', 'webeditor']
-                    ]
                 ];
             default:
                 return false;
