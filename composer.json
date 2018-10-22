@@ -1,12 +1,11 @@
 {
   "name": "remp/crm-wordpress-module",
   "description": "CRM Wordpress Module",
-  "version": "0.0.1",
   "type": "library",
   "homepage": "https://remp2020.com",
   "license": "MIT",
   "require": {
-    "remp/crm-application-module": "^0.0.1"
+    "remp/crm-application-module": "^0.1"
   },
   "minimum-stability": "dev",
   "autoload": {
