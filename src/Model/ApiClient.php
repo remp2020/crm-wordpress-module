@@ -2,44 +2,38 @@
 
 namespace Crm\WordpressModule\Model;
 
-use Crm\UsersModule\Repository\UsersRepository;
+use Crm\ApplicationModule\Config\ApplicationConfig;
+use GuzzleHttp\Client;
+use Nette\Utils\Json;
 
 /**
  * Class ApiClient
- * @todo Dummy implementation, should connect to wordpress API / database
  */
 class ApiClient
 {
-    private $usersRepository;
+    const AUTH = "356a7713-673b-40f0-948a-2d33439c455e";
 
-    public function __construct(
-        UsersRepository $usersRepository
-    ) {
-        $this->usersRepository = $usersRepository;
+    const TOKEN_CHECK_URL = "api/tokena/?id=ID&token=TOKEN";
+
+    private $client;
+
+    public function __construct(ApplicationConfig $config)
+    {
+        $this->client = new Client([
+            'base_uri' => $config->get('cms_url'),
+        ]);
     }
 
     public function userInfo(string $token)
     {
-        switch ($token) {
-            case 'testingWordpressToken':
-                return (object)[
-                    'user' => (object)[
-                        'id' => 'wp.11111',
-                        'email' => 'admin@admin.sk',
-                        'first_name' => 'CRM and WP',
-                        'last_name' => 'Author Admin',
-                        'roles' => ['admin', 'author', 'editor']
-                    ],
-                    'author' => (object)[
-                        'id' => 'wp.11111',
-                        'email' => 'admin@admin.sk',
-                        'first_name' => 'CRM and WP',
-                        'last_name' => 'Author Admin',
-                        'roles' => ['admin', 'author', 'editor']
-                    ],
-                ];
-            default:
-                return false;
-        }
+        $response = $this->client->get(self::TOKEN_CHECK_URL, [
+            'query' => [
+                'token' => $token,
+                'auth' => self::AUTH,
+            ],
+        ]);
+        $user = Json::decode($response->getBody()->getContents());
+
+        return $user;
     }
 }
