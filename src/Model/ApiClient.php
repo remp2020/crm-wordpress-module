@@ -4,6 +4,8 @@ namespace Crm\WordpressModule\Model;
 
 use Crm\ApplicationModule\Config\ApplicationConfig;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
+use Nette\Http\Response;
 use Nette\Utils\Json;
 
 /**
@@ -26,12 +28,20 @@ class ApiClient
 
     public function userInfo(string $token)
     {
-        $response = $this->client->get(self::TOKEN_CHECK_URL, [
-            'query' => [
-                'token' => $token,
-                'auth' => self::AUTH,
-            ],
-        ]);
+        try {
+            $response = $this->client->get(self::TOKEN_CHECK_URL, [
+                'query' => [
+                    'token' => $token,
+                    'auth' => self::AUTH,
+                ],
+            ]);
+        } catch (ClientException $e) {
+            if ($e->getResponse()->getStatusCode() === Response::S404_NOT_FOUND) {
+                return null;
+            }
+            throw $e;
+        }
+
         $user = Json::decode($response->getBody()->getContents());
 
         return $user;
