@@ -15,7 +15,7 @@ class ApiClient
 {
     const AUTH = "356a7713-673b-40f0-948a-2d33439c455e";
 
-    const TOKEN_CHECK_URL = "api/tokena/?id=ID&token=TOKEN";
+    const TOKEN_CHECK_URL = "/api/tokena";
 
     private $client;
 
