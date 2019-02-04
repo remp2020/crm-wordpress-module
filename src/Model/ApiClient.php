@@ -42,8 +42,12 @@ class ApiClient
             throw $e;
         }
 
-        $user = Json::decode($response->getBody()->getContents());
+        $body = $response->getBody()->getContents();
+        if (empty($body)) {
+            return null;
+        }
 
+        $user = Json::decode($body);
         return $user;
     }
 }
