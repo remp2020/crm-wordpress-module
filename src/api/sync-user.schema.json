@@ -1,0 +1,39 @@
+
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Sync Wordpress User resource",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["wordpress_id", "email", "registered_at"],
+  "properties": {
+    "wordpress_id": {
+      "type": "integer"
+    },
+    "email": {
+      "type": "string",
+      "format": "email"
+    },
+    "registered_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "user_login": {
+      "type": "string"
+    },
+    "user_nicename": {
+      "type": "string"
+    },
+    "user_url": {
+      "type": "string"
+    },
+    "display_name": {
+      "type": "string"
+    },
+    "first_name": {
+      "type": "string"
+    },
+    "last_name": {
+      "type": "string"
+    }
+  }
+}

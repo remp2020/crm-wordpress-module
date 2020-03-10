@@ -4,9 +4,12 @@ services:
 			- addModule(Crm\WordpressModule\WordpressModule())
 
 	- Crm\WordpressModule\Model\ApiClient
+	- Crm\WordpressModule\Seeders\ConfigsSeeder
+	wordpressUsersRepository: Crm\WordpressModule\Repository\WordpressUsersRepository
+	syncUserHandler: Crm\WordpressModule\Api\SyncUserHandler
+	wordpressAuthenticator: Crm\WordpressModule\Authenticator\WordpressAuthenticator
 
 	# API Authorization
 	userTokenAuthorization:
-		class: Crm\UsersModule\Auth\UserTokenAuthorization
 		setup:
 			- registerAuthorizator('wordpress', Crm\WordpressModule\Authorization\WordpressUserTokenAuthorization())

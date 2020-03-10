@@ -30,7 +30,7 @@ class WordpressUserTokenAuthorization implements ApiAuthorizationInterface
             return false;
         }
 
-        $token = $this->wordpressApiClient->userInfo($tokenParser->getToken());
+        $token = $this->wordpressApiClient->tokenAuthenticate($tokenParser->getToken());
 
         if (!$token || !isset($token->data)) {
             $this->errorMessage = "Token doesn't exists";
