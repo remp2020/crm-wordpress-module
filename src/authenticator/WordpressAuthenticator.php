@@ -108,7 +108,7 @@ class WordpressAuthenticator implements AuthenticatorInterface
             }
 
             if ($this->passwordReset) {
-                $this->userManager->resetPassword($user->email, $this->password, false);
+                $this->userManager->resetPassword($user, $this->password, false);
                 $user = $this->userManager->loadUserByEmail($user->email); // refresh user to have fresh password
             }
 
@@ -121,7 +121,7 @@ class WordpressAuthenticator implements AuthenticatorInterface
             }
         } else {
             if ($this->passwordReset) {
-                $this->userManager->resetPassword($user->email, $this->password, false);
+                $this->userManager->resetPassword($user, $this->password, false);
                 $user = $this->userManager->loadUserByEmail($user->email); // refresh user to have fresh password
             }
         }
