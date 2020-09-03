@@ -45,7 +45,7 @@ class WordpressUserTokenAuthorization implements ApiAuthorizationInterface
                 'first_name' => $token->data->first_name,
                 'last_name' => $token->data->last_name,
             ],
-            'source' => 'wordpress',
+            'authSource' => 'wordpress',
             'wordpress' => [],
         ]);
 
