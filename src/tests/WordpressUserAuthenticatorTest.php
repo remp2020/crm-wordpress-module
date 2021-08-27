@@ -54,7 +54,8 @@ JSON;
     "message": "Unable to authenticate user"
 }
 JSON;
-
+    /** @var Passwords */
+    private $passwords;
 
     public function requiredRepositories(): array
     {
@@ -75,6 +76,7 @@ JSON;
         $this->refreshContainer();
         parent::setUp();
 
+        $this->passwords = $this->inject(Passwords::class);
         $this->wordpressAuthenticator = $this->inject(WordpressAuthenticator::class);
         $this->usersRepository = $this->inject(UsersRepository::class);
         $this->wordpressUsersRepository = $this->inject(WordpressUsersRepository::class);
@@ -141,7 +143,7 @@ JSON;
         }
 
         // user should now have password from Wordpress
-        $this->assertTrue(Passwords::verify('secret', $user->password));
+        $this->assertTrue($this->passwords->verify('secret', $user->password));
     }
 
     public function testValidCredentialsExistingCrmUserNoPasswordChange()
@@ -167,7 +169,7 @@ JSON;
         }
 
         // user should still have his old password (change of password for existing users is not allowed by default)
-        $this->assertTrue(Passwords::verify('top_secret', $user->password));
+        $this->assertTrue($this->passwords->verify('top_secret', $user->password));
     }
 
     public function testInvalidCredentialsNoCrmUser()
