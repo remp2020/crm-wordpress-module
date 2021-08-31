@@ -3,7 +3,6 @@
 namespace Crm\WordpressModule\DI;
 
 use Kdyby\Translation\DI\ITranslationProvider;
-use Nette\DI\Compiler;
 use Nette\DI\CompilerExtension;
 
 final class WordpressModuleExtension extends CompilerExtension implements ITranslationProvider
@@ -20,8 +19,7 @@ final class WordpressModuleExtension extends CompilerExtension implements ITrans
         $this->validateConfig($this->defaults);
 
         // load services from config and register them to Nette\DI Container
-        Compiler::loadDefinitions(
-            $this->getContainerBuilder(),
+        $this->compiler->loadDefinitionsFromConfig(
             $this->loadFromFile(__DIR__.'/../config/config.neon')['services']
         );
 
