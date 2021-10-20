@@ -9,7 +9,7 @@ use Crm\ApiModule\Authorization\ApiAuthorizationInterface;
 use Crm\UsersModule\Auth\UserManager;
 use Crm\UsersModule\Repository\UsersRepository;
 use Crm\WordpressModule\Repository\WordpressUsersRepository;
-use Nette\Database\Table\IRow;
+use Nette\Database\Table\ActiveRow;
 use Nette\Http\Response;
 use Nette\Utils\DateTime;
 
@@ -134,7 +134,7 @@ class SyncUserHandler extends ApiHandler
         $this->extIdReferencing = $allowed;
     }
 
-    private function respond(IRow $wpUser)
+    private function respond(ActiveRow $wpUser)
     {
         $response = new JsonResponse([
             'user_id' => $wpUser->user_id,

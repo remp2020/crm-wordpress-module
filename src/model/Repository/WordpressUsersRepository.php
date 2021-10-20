@@ -3,14 +3,14 @@
 namespace Crm\WordpressModule\Repository;
 
 use Crm\ApplicationModule\Repository;
-use Nette\Database\Table\IRow;
+use Nette\Database\Table\ActiveRow;
 
 class WordpressUsersRepository extends Repository
 {
     protected $tableName = 'wordpress_users';
 
     final public function add(
-        IRow $user,
+        ActiveRow $user,
         int $wordpressId,
         string $email,
         string $login,

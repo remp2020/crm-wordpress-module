@@ -13,7 +13,7 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Response;
-use Nette\Database\Table\IRow;
+use Nette\Database\Table\ActiveRow;
 use Nette\Security\AuthenticationException;
 use Nette\Security\Passwords;
 
@@ -236,7 +236,7 @@ JSON;
         $this->inject(ApiClient::class)->setClient($client);
     }
 
-    private function loadUser($email, $password, $wordpressId, $role = UsersRepository::ROLE_USER, $active = true) : IRow
+    private function loadUser($email, $password, $wordpressId, $role = UsersRepository::ROLE_USER, $active = true) : ActiveRow
     {
         $user = $this->usersRepository->getByEmail($email);
         if (!$user) {

@@ -11,7 +11,7 @@ use Crm\UsersModule\Repository\UsersRepository;
 use Crm\WordpressModule\Events\WordpressUserMatchedEvent;
 use Crm\WordpressModule\Model\ApiClient;
 use League\Event\Emitter;
-use Nette\Database\Table\IRow;
+use Nette\Database\Table\ActiveRow;
 use Nette\Localization\ITranslator;
 use Nette\Security\AuthenticationException;
 
@@ -81,7 +81,7 @@ class WordpressAuthenticator implements AuthenticatorInterface
         return false;
     }
 
-    private function process(): IRow
+    private function process(): ActiveRow
     {
         $wpUser = $this->apiClient->credentialsAuthenticate($this->email, $this->password);
         if (!$wpUser) {
