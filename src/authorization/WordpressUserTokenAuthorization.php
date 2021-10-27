@@ -5,7 +5,7 @@ namespace Crm\WordpressModule\Authorization;
 use Crm\ApiModule\Authorization\ApiAuthorizationInterface;
 use Crm\ApiModule\Authorization\TokenParser;
 use Crm\WordpressModule\Model\ApiClient;
-use Nette\Security\IAuthorizator;
+use Nette\Security\Authorizator;
 use Nette\Utils\ArrayHash;
 
 class WordpressUserTokenAuthorization implements ApiAuthorizationInterface
@@ -22,7 +22,7 @@ class WordpressUserTokenAuthorization implements ApiAuthorizationInterface
         $this->wordpressApiClient = $wordpressApiClient;
     }
 
-    public function authorized($resource = IAuthorizator::ALL)
+    public function authorized($resource = Authorizator::ALL)
     {
         $tokenParser = new TokenParser();
         if (!$tokenParser->isOk()) {
