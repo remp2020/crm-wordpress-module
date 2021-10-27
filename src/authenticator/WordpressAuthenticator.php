@@ -12,7 +12,7 @@ use Crm\WordpressModule\Events\WordpressUserMatchedEvent;
 use Crm\WordpressModule\Model\ApiClient;
 use League\Event\Emitter;
 use Nette\Database\Table\ActiveRow;
-use Nette\Localization\ITranslator;
+use Nette\Localization\Translator;
 use Nette\Security\AuthenticationException;
 
 class WordpressAuthenticator implements AuthenticatorInterface
@@ -41,7 +41,7 @@ class WordpressAuthenticator implements AuthenticatorInterface
         UsersRepository $usersRepository,
         ApiClient $apiClient,
         UserManager $userManager,
-        ITranslator $translator,
+        Translator $translator,
         Emitter $emitter
     ) {
         $this->usersRepository = $usersRepository;
