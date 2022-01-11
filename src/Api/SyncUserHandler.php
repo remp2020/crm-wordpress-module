@@ -35,7 +35,7 @@ class SyncUserHandler extends ApiHandler
         $this->wordpressUsersRepository = $wordpressUsersRepository;
     }
 
-    public function params()
+    public function params(): array
     {
         return [];
     }
