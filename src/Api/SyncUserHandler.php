@@ -5,7 +5,7 @@ namespace Crm\WordpressModule\Api;
 use Crm\ApiModule\Api\ApiHandler;
 use Crm\ApiModule\Api\JsonResponse;
 use Crm\ApiModule\Api\JsonValidationTrait;
-use Crm\ApiModule\Authorization\ApiAuthorizationInterface;
+use Crm\ApiModule\Response\ApiResponseInterface;
 use Crm\UsersModule\Auth\UserManager;
 use Crm\UsersModule\Repository\UsersRepository;
 use Crm\WordpressModule\Repository\WordpressUsersRepository;
@@ -40,7 +40,7 @@ class SyncUserHandler extends ApiHandler
         return [];
     }
 
-    public function handle(ApiAuthorizationInterface $authorization)
+    public function handle(array $params): ApiResponseInterface
     {
         $payload = $this->validateInput(__DIR__ . '/sync-user.schema.json');
         if ($payload->hasErrorResponse()) {
