@@ -22,7 +22,7 @@ class WordpressUserTokenAuthorization implements ApiAuthorizationInterface
         $this->wordpressApiClient = $wordpressApiClient;
     }
 
-    public function authorized($resource = Authorizator::ALL)
+    public function authorized($resource = Authorizator::ALL): bool
     {
         $tokenParser = new TokenParser();
         if (!$tokenParser->isOk()) {
@@ -54,7 +54,7 @@ class WordpressUserTokenAuthorization implements ApiAuthorizationInterface
         return true;
     }
 
-    public function getErrorMessage()
+    public function getErrorMessage(): ?string
     {
         return $this->errorMessage;
     }
