@@ -1,7 +1,7 @@
 config:
-    cms_url:
-        name: Wordpress CMS URL
-        description: "URL smerujúca na titulku Wordpress CMS (napr. <code>https://dennikn.sk</code>)"
-    cms_auth_token:
-        name: Wordpress CMS autorizácia
-        description: "Autorizačný token, ktorý sa použije pri komunikácií s integračným pluginom vo WP (napr. <code>818eecb0-2021-4d51-a7b4-5f26f43b5308</code>)"
+	cms_url:
+		name: Wordpress CMS URL
+		description: "URL smerujúca na titulku Wordpress CMS (napr. <code>https://dennikn.sk</code>)"
+	cms_auth_token:
+		name: Wordpress CMS autorizácia
+		description: "Autorizačný token, ktorý sa použije pri komunikácií s integračným pluginom vo WP (napr. <code>818eecb0-2021-4d51-a7b4-5f26f43b5308</code>)"
