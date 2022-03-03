@@ -1,5 +1,7 @@
 # CRM Wordpress Module
 
+[![Translation status @ Weblate](https://hosted.weblate.org/widgets/remp-crm/-/wordpress-module/svg-badge.svg)](https://hosted.weblate.org/projects/remp-crm/wordpress-module/)
+
 ## User authentication
 
 CRM supports user authentication against configured Wordpress instance. To enable this feature,
