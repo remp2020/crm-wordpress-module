@@ -3,15 +3,15 @@
 namespace Crm\WordpressModule\Api;
 
 use Crm\ApiModule\Api\ApiHandler;
-use Crm\ApiModule\Api\JsonResponse;
 use Crm\ApiModule\Api\JsonValidationTrait;
-use Crm\ApiModule\Response\ApiResponseInterface;
 use Crm\UsersModule\Auth\UserManager;
 use Crm\UsersModule\Repository\UsersRepository;
 use Crm\WordpressModule\Repository\WordpressUsersRepository;
 use Nette\Database\Table\ActiveRow;
 use Nette\Http\Response;
 use Nette\Utils\DateTime;
+use Tomaj\NetteApi\Response\JsonApiResponse;
+use Tomaj\NetteApi\Response\ResponseInterface;
 
 class SyncUserHandler extends ApiHandler
 {
@@ -40,7 +40,7 @@ class SyncUserHandler extends ApiHandler
         return [];
     }
 
-    public function handle(array $params): ApiResponseInterface
+    public function handle(array $params): ResponseInterface
     {
         $payload = $this->validateInput(__DIR__ . '/sync-user.schema.json');
         if ($payload->hasErrorResponse()) {
@@ -62,12 +62,11 @@ class SyncUserHandler extends ApiHandler
                 // changing email to user that exists; cannot proceed as there might be conflict
                 //   * user can have link to another Wordpress user (obvious conflict)
                 //   * user doesn't have link to any wordpress user (seems good, but can cause account hijack)
-                $response = new JsonResponse([
+                $response = new JsonApiResponse(Response::S409_CONFLICT, [
                     'status' => 'error',
                     'message' => 'User with following email already exists, cannot synchronize: ' . $json->email,
                     'code' => 'email_conflict',
                 ]);
-                $response->setHttpCode(Response::S409_CONFLICT);
                 return $response;
             }
 
@@ -87,12 +86,11 @@ class SyncUserHandler extends ApiHandler
         }
 
         if ($user) {
-            $response = new JsonResponse([
+            $response = new JsonApiResponse(Response::S409_CONFLICT, [
                 'status' => 'error',
                 'message' => 'User with following email already exists, cannot synchronize: ' . $json->email,
                 'code' => 'email_conflict',
             ]);
-            $response->setHttpCode(Response::S409_CONFLICT);
             return $response;
         }
 
@@ -136,7 +134,7 @@ class SyncUserHandler extends ApiHandler
 
     private function respond(ActiveRow $wpUser)
     {
-        $response = new JsonResponse([
+        $response = new JsonApiResponse(Response::S200_OK, [
             'user_id' => $wpUser->user_id,
             'wordpress_id' => $wpUser->wordpress_id,
             'email' => $wpUser->email,
@@ -148,7 +146,6 @@ class SyncUserHandler extends ApiHandler
             'first_name' => $wpUser->first_name,
             'last_name' => $wpUser->last_name,
         ]);
-        $response->setHttpCode(Response::S200_OK);
         return $response;
     }
 }
